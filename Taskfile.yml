@@ -61,6 +61,13 @@ tasks:
     cmds:
       - scp dist/* muzak:/var/www/pypi/packages/{{.PROJECT}}
 
+  run:
+    desc: systemd exec
+    dir: src/
+    cmds:
+      - dotenv -f ../.env run mamba run -n {{.PROJECT}} python -m {{.PROJECT}}
+
+
   deploy:
     desc: all
     cmds:
