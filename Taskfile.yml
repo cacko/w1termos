@@ -17,7 +17,7 @@ tasks:
   logs:
     desc: monitor logs
     cmds:
-      - ssh $REMOTE_HOST 'source ~/.zshrc;journalctl --user-unit {{.PROJECT}} -f --all'
+      - ssh pi4 'source ~/.bashrc;journalctl --unit {{.PROJECT}} -f --all'
 
   export:
     desc: export env
@@ -67,10 +67,26 @@ tasks:
     cmds:
       - dotenv -f ../.env run mamba run --live-stream -n {{.PROJECT}} python -m {{.PROJECT}}
 
+  start:
+    desc: start the service
+    cmds:
+      - ssh pi4 'source ~/.bashrc;systemctl start {{.PROJECT}}'
+
+  stop:
+    desc: stop the server
+    cmds:
+      - ssh pi4 'source ~/.bashrc;systemctl stop {{.PROJECT}}'
+
+  restart:
+    desc: restart the service
+    cmds:
+      - task: stop
+      - ssh pi4 'source ~/.bashrc;sleep 1'
+      - task: start
 
   deploy:
     desc: all
     cmds:
-      - task: push
-      - task: build
-      - task: publish
+      - task: stop
+      - task: pp
+      - task: start
