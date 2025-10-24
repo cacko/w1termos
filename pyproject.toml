@@ -1,0 +1,22 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools<81", "setuptools_scm"]
+
+[project]
+authors = [{ name = "w1termos", email = "alex@cacko.net" }]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+description = "termos utils"
+name = "w1termos"
+requires-python = ">=3.12"
+dynamic = ["version"]
+dependencies = [
+
+]
+[project.scripts]
+pixelme = "w1termos.cli:cli"
+
+[tool.setuptools_scm]
+version_file = "version.txt"

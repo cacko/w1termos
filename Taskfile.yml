@@ -1,0 +1,51 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  PROJECT: w1termos
+
+tasks:
+
+  default:
+    dir: src
+    desc: run app
+    cmds:
+      - direnv exec . mamba run -n {{.PROJECT}} python -m {{.PROJECT}}.cli {{.CLI_ARGS}}
+    silent: true
+
+  logs:
+    desc: monitor logs
+    cmds:
+      - ssh $REMOTE_HOST 'source ~/.zshrc;journalctl --user-unit {{.PROJECT}} -f --all'
+
+  export:
+    desc: export env
+    cmds:
+      - conda env export --no-builds  -n {{.PROJECT}} > environment.yml
+
+  push:
+    desc: commit and pushes current changes
+    cmds:
+      - git add .  || true
+      - git commit -am "$(curl -s https://commit.cacko.net/index.txt)" || true
+      - git push || true
+
+  build:
+    desc: build
+    cmds:
+      - rm -rf build
+      - rm -rf dist/*
+      - mamba run -n {{.PROJECT}} python  -m build
+
+  publish:
+    desc: publish
+    cmds:
+      - scp dist/* muzak:/var/www/pypi/packages/{{.PROJECT}}
+
+  deploy:
+    desc: all
+    cmds:
+      - task: push
+      - task: build
+      - task: publish
