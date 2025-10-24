@@ -1,3 +1,3 @@
 #!/usr/bin/bash
-source /storage/src/.bashrc
+source /storage/.bashrc
 task run
