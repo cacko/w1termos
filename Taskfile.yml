@@ -31,6 +31,24 @@ tasks:
       - git commit -am "$(curl -s https://commit.cacko.net/index.txt)" || true
       - git push || true
 
+  push:
+    desc: commit and pushes current changes
+    cmds:
+      - git add .  || true
+      - git commit -am "$(curl -s https://commit.cacko.net/index.txt)" || true
+      - git push || true
+
+  pull:
+    desc: pulls from git
+    cmds:
+      - ssh $REMOTE_HOST 'cd /storage/src/{{.PROJECT}};git reset --hard;git pull'
+
+  pp:
+    desc: push and pull
+    cmds:
+      - task: push
+      - task: pull
+
   build:
     desc: build
     cmds:
