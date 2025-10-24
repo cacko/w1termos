@@ -2,11 +2,17 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from w1termos.api import router as api_router
 
+
 def create_app():
 
-    origins = ['*']
+    origins = ["*"]
 
-    app = FastAPI(title="w1termos@cacko.net")
+    app = FastAPI(
+        title="w1termos@cacko.net",
+        docs_url="/api/docs",
+        openapi_url="/api/openapi.json",
+        redoc_url="/api/redoc",
+    )
 
     app.add_middleware(
         CORSMiddleware,
@@ -18,4 +24,3 @@ def create_app():
 
     app.include_router(api_router, prefix="/api")
     return app
-
