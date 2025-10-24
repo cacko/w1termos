@@ -65,7 +65,7 @@ tasks:
     desc: systemd exec
     dir: src/
     cmds:
-      - dotenv -f ../.env run mamba run -n {{.PROJECT}} python -m {{.PROJECT}}
+      - dotenv -f ../.env run mamba run --live-stream -n {{.PROJECT}} python -m {{.PROJECT}}
 
 
   deploy:
