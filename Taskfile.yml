@@ -41,7 +41,7 @@ tasks:
   pull:
     desc: pulls from git
     cmds:
-      - ssh $REMOTE_HOST 'source ~/.bashrc;cd /storage/src/{{.PROJECT}};git reset --hard;git pull'
+      - dotenv run ssh $REMOTE_HOST 'source ~/.bashrc;cd /storage/src/{{.PROJECT}};git reset --hard;git pull'
 
   pp:
     desc: push and pull
