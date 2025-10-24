@@ -1,3 +1,3 @@
-#!/bin/zsh
+#!/usr/bin/bash
 source ~/.bashrc
 task run
