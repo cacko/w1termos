@@ -16,7 +16,7 @@ def start():
             create_app,
             host=app_config.w1termos.host,
             port=app_config.w1termos.port,
-            log_level="info",
+            log_level="debug",
             loop="uvloop",
             factory=True,
             access_log=True,
